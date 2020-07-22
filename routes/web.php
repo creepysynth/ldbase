@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\WelcomMail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+//Route::get('services', 'ServiceController@index');
+
+Route::resource('services', 'ServiceController');
+
+Route::get('/email', function() {
+    return new WelcomMail();
 });
