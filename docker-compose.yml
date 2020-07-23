@@ -3,9 +3,8 @@ services:
   app:
     build:
       args:
-        NODE_VERSION: 12.18.2
-        USER: 1000
-        UID: 1000
+        user: 1000
+        uid: 1000
       context: ./
       dockerfile: Dockerfile
     image: laravel
