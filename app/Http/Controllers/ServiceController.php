@@ -12,8 +12,6 @@ class ServiceController extends Controller
      */
     public function index()
     {
-//        $services = Service::all();
-
         if ( is_null( request()->query('active') ) )
         {
             $services = Service::all();
@@ -43,6 +41,9 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $data = $this->validatedData();
+
+        $data['active'] = request()->has('active');
+
         $service = Service::create($data);
 
 //        return redirect()->back();
@@ -52,7 +53,7 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Service $service
      */
     public function show(Service $service)
     {

@@ -12,7 +12,7 @@
         <div class="container">
             <h1>Create service</h1>
             <br>
-            <form action="/services" method="POST">
+            <form action="{{ route('services.store') }}" method="POST">
                 @csrf
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -33,8 +33,8 @@
 {{--                    <input type="password" class="form-control" id="exampleInputPassword1">--}}
 {{--                </div>--}}
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="check" name="check">
-                    <label class="form-check-label" for="check">Check me out</label>
+                    <input type="checkbox" class="form-check-input" id="active" name="active">
+                    <label class="form-check-label" for="check">Active</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

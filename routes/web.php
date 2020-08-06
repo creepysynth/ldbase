@@ -18,10 +18,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('services', 'ServiceController@index');
-
-Route::resource('services', 'ServiceController');
+Route::resources([
+    '/services' => 'ServiceController',
+    '/questionnaires' => 'QuestionnaireController'
+]);
 
 Route::get('/email', function() {
     return new WelcomMail();
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/questions/{question}', 'QuestionController@show')->name('questions.show');
+Route::get('/questionnaires/{questionnaire}/questions/create', 'QuestionController@create')->name('questions.create');
+Route::post('/questionnaires/{questionnaire}/questions', 'QuestionController@store')->name('questions.store');
+Route::delete('/questionnaires/{questionnaire}/questions/{question}', 'QuestionController@destroy')->name('questions.destroy');
+
+Route::get('/surveys/{questionnaire}-{slug}', 'SurveyController@show')->name('surveys.show');
+Route::post('/surveys/{questionnaire}-{slug}', 'SurveyController@store')->name('surveys.store');

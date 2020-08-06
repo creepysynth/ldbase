@@ -12,7 +12,7 @@
         <div class="container">
             <h1>Edit service</h1>
             <br>
-            <form action="/services/{{ $service->id }}" method="POST">
+            <form action="{{ route('services.update', ['service' => $service->id]) }}" method="POST">
                 @csrf
                 @method('PATCH')
                 @if ($errors->any())
@@ -31,7 +31,7 @@
                 <p style="color:red;">@error('name'){{ $message }}@enderror</p>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="active" name="active" @if($service->active) checked @endif>
-                    <label class="form-check-label" for="check">Check me out</label>
+                    <label class="form-check-label" for="check">Active</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

@@ -11,9 +11,9 @@
     <body>
         <div class="container">
             <h1>Services</h1>
-            <a href="/services?active=1" class="btn btn-primary">Active</a>
-            <a href="/services?active=0" class="btn btn-warning">Inactive</a>
-            <a href="/services" class="btn btn-success">All</a>
+            <a href="{{ route('services.index') }}" class="btn btn-success">All</a>
+            <a href="{{ route('services.index', ['active' => 1]) }}" class="btn btn-primary">Active</a>
+            <a href="{{ route('services.index', ['active' => 0]) }}" class="btn btn-warning">Inactive</a>
             <br><br>
             <ul>
                 @forelse($services as $service)
