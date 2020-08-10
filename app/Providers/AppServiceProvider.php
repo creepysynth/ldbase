@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Billing\BankPaymentGateway;
 use App\Billing\CreditPaymentGateway;
 use App\Billing\PaymentGatewayContract;
+use App\Channel;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         // create singleton of BankPaymentGateway (or CreditPaymentGateway)
         // every time interface PaymentGatewayContract invoked
         $this->app->singleton(PaymentGatewayContract::class, function ($app) {
-            if (request()->has('credit'))
+            if (request('gateway') == 'credit')
             {
                 return new CreditPaymentGateway('usd');
             }
@@ -45,6 +47,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Option 1 - Every single view
+        // View::share('channels', Channel::orderBy('name')->get());
+
+        // Option 2 - Granular views with wildcards
+        $views = [
+            'channel.*',
+            'post.create'
+        ];
+
+        View::composer($views, function ($view) {
+            $view->with('channels', Channel::orderBy('name')->get());
+        });
     }
 }

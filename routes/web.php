@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pay', 'PayOrderController@store');
+Route::get('/pay', 'PayOrderController@store')->name('pay.store');
 
-Route::get('/channels', 'ChannelController@index');
-Route::get('/posts/create', 'PostController@create');
+Route::get('/channels', 'ChannelController@index')->name('channels.index');
+Route::get('/posts/create', 'PostController@create')->name('posts.create');

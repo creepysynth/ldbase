@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-</head>
-<body>
-<ul>
-    @forelse($channels as $channel)
-        <li>{{ $channel->name }}</li>
-    @empty
-        No channels yet
-    @endforelse
-</ul>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+    <form action="" method="post">
+        <label for="channel_id">Select channel</label>
+        <br>
+        <select name="channel_id" id="channel_id">
+            @forelse($channels as $channel)
+                <option value="{{ $channel->id }}">{{ $channel->name }}</option>
+            @empty
+                No channels yet
+            @endforelse
+        </select>
+    </form>
+@endsection

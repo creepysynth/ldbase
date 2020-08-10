@@ -12,7 +12,8 @@ class PayOrderController extends Controller
     {
 //        $paymentGateway = new BankPaymentGateway('usd');
         $order = $orderDetails->all();
+        $result = $paymentGateway->charge(2500);
 
-        dd($paymentGateway->charge(2500));
+        return view('pay.store', compact('result'));
     }
 }
