@@ -6,6 +6,7 @@ use App\Billing\BankPaymentGateway;
 use App\Billing\CreditPaymentGateway;
 use App\Billing\PaymentGatewayContract;
 use App\Channel;
+use App\Http\View\Composers\ChannelComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -48,16 +49,24 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Option 1 - Every single view
-        // View::share('channels', Channel::orderBy('name')->get());
+//        View::share('channels', Channel::orderBy('name')->get());
 
-        // Option 2 - Granular views with wildcards
+        // Option 2 - Granular views (with wildcards)
+//        $views = [
+//            'channel.*',
+//            'post.create'
+//        ];
+//
+//        View::composer($views, function ($view) {
+//            $view->with('channels', Channel::orderBy('name')->get());
+//        });
+
+        // Option 3 - Dedicated class (with wildcards)
         $views = [
             'channel.*',
             'post.create'
         ];
 
-        View::composer($views, function ($view) {
-            $view->with('channels', Channel::orderBy('name')->get());
-        });
+        View::composer($views, ChannelComposer::class);
     }
 }
