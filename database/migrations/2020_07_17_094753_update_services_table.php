@@ -26,9 +26,7 @@ class UpdateServicesTable extends Migration
     public function down()
     {
         Schema::table('services', function (Blueprint $table) {
-            Schema::table('users', function (Blueprint $table) {
-                $table->dropColumn('active');
-            });
+            $table->dropColumn('active');
         });
     }
 }
