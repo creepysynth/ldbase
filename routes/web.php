@@ -23,9 +23,11 @@ Route::get('/', function () {
 // Service Container. Lesson 1.
 Route::get('/pay', 'PayOrderController@store')->name('pay.store');
 
+
 // View composers & polymorphic relationships. Lessons 2 & 3.
 Route::get('/channels', 'ChannelController@index')->name('channels.index');
 Route::get('/posts/create', 'PostController@create')->name('posts.create');
+
 
 // Facades. Lesson 4.
 // Standard way
@@ -38,6 +40,7 @@ Route::get('/postcards/standard', function () {
 Route::get('/postcards/facade', function() {
     return \App\Postcard::hello('Hello from facade!', 'a@a.com');
 })->name('postcards.facade');
+
 
 // Macros. Lesson 5.
 Route::get('/macros/str', function () {
@@ -54,3 +57,11 @@ Route::get('/macros/error', function () {
     $data = json_encode(Response::errorJson('An error occurred'));
     return view('default', compact('data'));
 })->name('macros.error');
+
+
+// Pipelines. Lesson 6.
+Route::get('/posts', 'PostController@index')->name('posts.index');
+
+
+// Repository Pattern. Lesson 7.
+Route::get('/customers', 'CustomerController@index')->name('customers.index');

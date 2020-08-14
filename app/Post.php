@@ -2,7 +2,11 @@
 
 namespace App;
 
+use App\QueryFilters\Posts\Active;
+use App\QueryFilters\Posts\MaxCount;
+use App\QueryFilters\Posts\Sort;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pipeline\Pipeline;
 
 class Post extends Model
 {
@@ -26,5 +30,21 @@ class Post extends Model
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
+    }
+
+    // Pipelines. Lesson 6.
+    // NOTE: Pagination and max_count will not work together
+    // because pagination overwrites the limit() method!
+    public static function getPosts()
+    {
+        return app(Pipeline::class)
+            ->send(Post::query())
+            ->through([
+                Active::class,
+                Sort::class,
+                MaxCount::class,
+            ])
+            ->thenReturn()
+            ->paginate(5);
     }
 }

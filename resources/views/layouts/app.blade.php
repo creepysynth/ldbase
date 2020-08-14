@@ -73,6 +73,16 @@
                               <a class="dropdown-item" href="{{ route('macros.error') }}">Response</a>
                             </div>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Pipelines
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="{{ route('posts.index', ['active' => '0', 'sort' => 'asc']) }}">Posts filter 1</a>
+                              <a class="dropdown-item" href="{{ route('posts.index', ['active' => '1', 'sort' => 'desc']) }}">Posts filter 2</a>
+                              <a class="dropdown-item" href="{{ route('posts.index', ['max_count' => '4', 'sort' => 'asc']) }}">Posts filter 3</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
