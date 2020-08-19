@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Service Container. Lesson 1.
         // create new object every time class BankPaymentGateway invoked
 //        $this->app->bind(BankPaymentGateway::class, function ($app) {
 //            return new BankPaymentGateway('usd');

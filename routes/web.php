@@ -65,3 +65,16 @@ Route::get('/posts', 'PostController@index')->name('posts.index');
 
 // Repository Pattern. Lesson 7.
 Route::get('/customers', 'CustomerController@index')->name('customers.index');
+Route::get('/customers/{id}', 'CustomerController@show')->name('customers.show');
+
+
+// Lazy collections & php generators. Lesson 7.
+Route::get('/lazy', function () {
+    $collection = \Illuminate\Support\LazyCollection::times(600000)
+        ->map(function ($number) {
+            return pow(2, $number);
+        });
+
+//    dd($collection->all());
+    return 'done!';
+});

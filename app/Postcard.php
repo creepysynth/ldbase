@@ -13,8 +13,8 @@ class Postcard
         return app()[$name];
     }
 
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic($method, $arguments)
     {
-        return self::resolve_facade('PostcardSendingService')->$name(...$arguments);
+        return self::resolve_facade('PostcardSendingService')->$method(...$arguments);
     }
 }

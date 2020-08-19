@@ -83,6 +83,15 @@
                               <a class="dropdown-item" href="{{ route('posts.index', ['max_count' => '4', 'sort' => 'asc']) }}">Posts filter 3</a>
                             </div>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Repository
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="{{ route('customers.index') }}">Customers</a>
+                              <a class="dropdown-item" href="{{ route('customers.show', ['id' => '12']) }}">Customer with id 12</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
