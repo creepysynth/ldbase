@@ -20,3 +20,14 @@ Access to application's shell:
     ```
     docker-compose exec app bash
     ```
+    
+To install API environment run i terminal:
+```
+composer require laravel/ui
+php artisan ui vue --auth
+```
+then:
+```
+npm install && npm run dev
+npm install vue-router tailwindcss --save-dev
+```
