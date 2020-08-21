@@ -15,11 +15,11 @@ class ServiceController extends Controller
         if (request()->has('active'))
         {
             $active = request()->query('active');
-            $services = Service::where('active', $active)->get();
+            $services = Service::where('active', $active)->orderBy('name')->get();
         }
         else
         {
-            $services = Service::all();
+            $services = Service::orderBy('name')->get();
         }
 
         return view('services.index', compact('services'));
