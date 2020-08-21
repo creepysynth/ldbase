@@ -12,14 +12,14 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        if ( is_null( request()->query('active') ) )
-        {
-            $services = Service::all();
-        }
-        else
+        if (request()->has('active'))
         {
             $active = request()->query('active');
             $services = Service::where('active', $active)->get();
+        }
+        else
+        {
+            $services = Service::all();
         }
 
         return view('services.index', compact('services'));
