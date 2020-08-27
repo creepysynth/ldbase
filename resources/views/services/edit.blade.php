@@ -21,7 +21,7 @@
             </div>
             <p style="color:red;">@error('name'){{ $message }}@enderror</p>
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="active" name="active" @if($service->active) checked @endif>
+                <input type="checkbox" class="form-check-input" id="active" name="active" @if($service->active == 'Active') checked @endif>
                 <label class="form-check-label" for="active">Active</label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>

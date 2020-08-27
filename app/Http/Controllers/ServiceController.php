@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+//use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
 class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -36,13 +43,14 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store()
     {
         $data = $this->validatedData();
 
-        $data['active'] = request()->has('active');
+        // Lesson 18. We don't need this if we set default "active" attribute (see Service model)
+//        $data['active'] = request()->has('active');
 
         $service = Service::create($data);
 
@@ -54,6 +62,7 @@ class ServiceController extends Controller
      * Display the specified resource.
      *
      * @param Service $service
+     * @return Application|Factory|View
      */
     public function show(Service $service)
     {
@@ -63,7 +72,8 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Service $service
+     * @return Application|Factory|View
      */
     public function edit(Service $service)
     {
@@ -73,8 +83,8 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Service $service
+     * @return Application|RedirectResponse|Redirector
      */
     public function update(Service $service)
     {
@@ -90,7 +100,9 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Service $service
+     * @return Application|RedirectResponse|Redirector
+     * @throws \Exception
      */
     public function destroy(Service $service)
     {

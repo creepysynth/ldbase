@@ -4,7 +4,7 @@
     <body>
         <div class="container">
             <h1>{{ $service->name }}</h1>
-            <h4>@if($service->active) active @else inactive @endif</h4>
+            <h4>{{ $service->active }}</h4>
             <div class="row">
                 <a href="/services" class="btn btn-primary mr-2">Back</a>
                 <a href="/services/{{ $service->id }}/edit" class="btn btn-success mr-2">Edit</a>
