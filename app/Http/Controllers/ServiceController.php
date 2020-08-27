@@ -94,6 +94,13 @@ class ServiceController extends Controller
 
         $service->update($data);
 
+        // Tutorial From Scratch - e20 - Flashing Data to Session & Conditional Alerts in View.
+        // Option 1. Using "with".
+//        return redirect('/services')->with('message', 'Service has been updated.');
+
+        // Option 2. Using session helper.
+        session()->flash('message', 'Service has been updated.');
+
         return redirect('/services');
     }
 
