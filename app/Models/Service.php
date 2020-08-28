@@ -11,10 +11,11 @@ class Service extends Model
         'active'
     ];
 
-    // Lesson 18. Set default attributes when create new service (4:45)
-    protected $attributes = [
-        'active' => 0
-    ];
+    // Lesson 18. Set default attributes when creating new service (4:45).
+    // This attribute will be set to default in DB no matter what you set it in the controller
+//    protected $attributes = [
+//        'active' => 0
+//    ];
 
     // Lesson 15. Accessor (11:10)
     public function getActiveAttribute($attribute)

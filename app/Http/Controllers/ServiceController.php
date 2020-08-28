@@ -13,6 +13,23 @@ use Illuminate\View\View;
 class ServiceController extends Controller
 {
     /**
+     * Class constructor
+     */
+    public function __construct()
+    {
+        // Laravel 5.8 Tutorial From Scratch - e22 - Artisan Authentication Restricting Access with Middleware
+        // Option 1. Restrict access for unauthenticated users to all methods except index method.
+//        $this->middleware('auth')->except('index');
+
+        // Option 2. Restrict access for unauthenticated users to listed methods.
+        $this->middleware('auth')->only([
+            'create',
+            'store',
+            'destroy'
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
@@ -21,6 +38,7 @@ class ServiceController extends Controller
     {
         if (request()->has('active'))
         {
+            // Method "query" is used to get URI parameter value
             $active = request()->query('active');
             $services = Service::where('active', $active)->orderBy('name')->get();
         }
@@ -49,8 +67,15 @@ class ServiceController extends Controller
     {
         $data = $this->validatedData();
 
-        // Lesson 18. We don't need this if we set default "active" attribute (see Service model)
-//        $data['active'] = request()->has('active');
+        // Method "get" is used to get post parameter value
+        if (request()->has('active') && (request()->get('active') === 'on') )
+        {
+            $data['active'] = 1;
+        }
+        else
+        {
+            $data['active'] = 0;
+        }
 
         $service = Service::create($data);
 

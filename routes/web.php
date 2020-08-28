@@ -32,7 +32,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/questions/{question}', 'QuestionController@show')->name('questions.show');
+// Laravel 5.8 Tutorial From Scratch - e22 - Artisan Authentication Restricting Access with Middleware
+// Restricting access to question page with middleware for unauthenticated users.
+Route::get('/questions/{question}', 'QuestionController@show')
+    ->name('questions.show')
+    ->middleware('auth');
+
 Route::get('/questionnaires/{questionnaire}/questions/create', 'QuestionController@create')->name('questions.create');
 Route::post('/questionnaires/{questionnaire}/questions', 'QuestionController@store')->name('questions.store');
 Route::delete('/questionnaires/{questionnaire}/questions/{question}', 'QuestionController@destroy')->name('questions.destroy');
