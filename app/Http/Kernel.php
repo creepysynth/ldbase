@@ -21,6 +21,9 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // Laravel 5.8 Tutorial From Scratch - e23 - Adding a Custom Middleware
+        // Option 1. Works always on every request.
+//        \App\Http\Middleware\TestMiddleware::class,
     ];
 
     /**
@@ -37,6 +40,9 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            // Laravel 5.8 Tutorial From Scratch - e23 - Adding a Custom Middleware
+            // Option 2. Works on web routes only.
+//            \App\Http\Middleware\TestMiddleware::class,
         ],
 
         'api' => [
@@ -63,5 +69,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // Laravel 5.8 Tutorial From Scratch - e23 - Adding a Custom Middleware
+        // Option 3. Use our middleware rule as pseudonym on specific route.
+        'test.middleware' => \App\Http\Middleware\TestMiddleware::class,
     ];
 }

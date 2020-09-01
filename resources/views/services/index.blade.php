@@ -20,7 +20,7 @@
                 No services available
             @endforelse
         </ul>
-        <a href="/services/create" class="btn btn-success">Create service</a>
+        <a href="{{ route('services.create') }}" class="btn btn-success">Create service</a>
     </div>
 </body>
 @endsection
