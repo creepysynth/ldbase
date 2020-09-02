@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewServiceCreated;
 use App\Models\Service;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 //use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ServiceController extends Controller
@@ -58,10 +61,34 @@ class ServiceController extends Controller
         return view('services.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Application|RedirectResponse|Redirector
+//    /**
+//     * Store a newly created resource in storage.
+//     *
+//     * @return Application|RedirectResponse|Redirector
+//     */
+//    public function store()
+//    {
+//        $data = $this->validatedData();
+//
+//        // Method "get" is used to get post parameter value
+//        if (request()->has('active') && (request()->get('active') === 'on') )
+//        {
+//            $data['active'] = 1;
+//        }
+//        else
+//        {
+//            $data['active'] = 0;
+//        }
+//
+//        $service = Service::create($data);
+//
+////        return redirect()->back();
+//        return redirect(route('services.show', ['service' => $service]));
+//    }
+
+     /**
+     * Laravel 5.8 Tutorial From Scratch - e28 - Events & Listeners
+     * Laravel 5.8 Tutorial From Scratch - e29 - Queues: Database Driver
      */
     public function store()
     {
@@ -78,9 +105,19 @@ class ServiceController extends Controller
         }
 
         $service = Service::create($data);
+//
+//        $service = new Service();
+//        $service->name = request()->get('name');
 
-//        return redirect()->back();
-        return redirect('/services/' . $service->id);
+        dump('First message');
+
+        // We have to provide user's object or we get error:
+        // ErrorException: Trying to get property 'email' of non-object.
+        // See App\Listeners\NewServiceSendEmail
+        event(new NewServiceCreated($service, Auth::user()));
+
+//        Storage::append('testfile', $service->name);
+//        dd(asset('storage/testfile'));
     }
 
     /**

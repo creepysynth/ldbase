@@ -7,18 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomMail extends Mailable
+class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $service;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $service
      */
-    public function __construct()
+    public function __construct($service)
     {
-        //
+        $this->service = $service;
     }
 
     /**
@@ -28,6 +30,6 @@ class WelcomMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.welcome');
+        return $this->view('emails.welcome');
     }
 }

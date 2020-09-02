@@ -1,6 +1,6 @@
 <?php
 
-use App\Mail\WelcomMail;
+use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +32,7 @@ Route::resources([
 ]);
 
 Route::get('/email', function() {
-    return new WelcomMail();
+    return new WelcomeMail();
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -61,3 +61,8 @@ Route::delete('/questionnaires/{questionnaire}/questions/{question}', 'QuestionC
 
 Route::get('/surveys/{questionnaire}-{slug}', 'SurveyController@show')->name('surveys.show');
 Route::post('/surveys/{questionnaire}-{slug}', 'SurveyController@store')->name('surveys.store');
+
+// Laravel 5.8 Tutorial From Scratch - e26 - Vue Basics 101
+Route::get('/vue', function() {
+    return view('vue.index');
+});
