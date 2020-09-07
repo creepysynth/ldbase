@@ -105,9 +105,6 @@ class ServiceController extends Controller
         }
 
         $service = Service::create($data);
-//
-//        $service = new Service();
-//        $service->name = request()->get('name');
 
         dump('First message');
 
@@ -115,9 +112,6 @@ class ServiceController extends Controller
         // ErrorException: Trying to get property 'email' of non-object.
         // See App\Listeners\NewServiceSendEmail
         event(new NewServiceCreated($service, Auth::user()));
-
-//        Storage::append('testfile', $service->name);
-//        dd(asset('storage/testfile'));
     }
 
     /**
