@@ -8,7 +8,8 @@ class Service extends Model
 {
     protected $fillable = [
         'name',
-        'active'
+        'active',
+        'image'
     ];
 
     // Lesson 18. Set default attributes when creating new service (4:45).

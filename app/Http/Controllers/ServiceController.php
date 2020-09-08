@@ -12,6 +12,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Intervention\Image\Facades\Image;
 
 class ServiceController extends Controller
 {
@@ -61,41 +62,18 @@ class ServiceController extends Controller
         return view('services.create');
     }
 
-//    /**
-//     * Store a newly created resource in storage.
-//     *
-//     * @return Application|RedirectResponse|Redirector
-//     */
-//    public function store()
-//    {
-//        $data = $this->validatedData();
-//
-//        // Method "get" is used to get post parameter value
-//        if (request()->has('active') && (request()->get('active') === 'on') )
-//        {
-//            $data['active'] = 1;
-//        }
-//        else
-//        {
-//            $data['active'] = 0;
-//        }
-//
-//        $service = Service::create($data);
-//
-////        return redirect()->back();
-//        return redirect(route('services.show', ['service' => $service]));
-//    }
-
      /**
-     * Laravel 5.8 Tutorial From Scratch - e28 - Events & Listeners
-     * Laravel 5.8 Tutorial From Scratch - e29 - Queues: Database Driver
+     * Store a newly created resource in storage.
+     *
+     * @return Application|RedirectResponse|Redirector
      */
     public function store()
     {
         $data = $this->validatedData();
 
         // Method "get" is used to get post parameter value
-        if (request()->has('active') && (request()->get('active') === 'on') )
+        if (request()->has('active')
+            && (request()->get('active') === 'on') )
         {
             $data['active'] = 1;
         }
@@ -106,12 +84,18 @@ class ServiceController extends Controller
 
         $service = Service::create($data);
 
-        dump('First message');
+        $this->storeImage($service);
 
+        return redirect(route('services.show', ['service' => $service]));
+
+        // * Laravel 5.8 Tutorial From Scratch - e28 - Events & Listeners
+        // * Laravel 5.8 Tutorial From Scratch - e29 - Queues: Database Driver
+//        dump('First message');
+//
         // We have to provide user's object or we get error:
         // ErrorException: Trying to get property 'email' of non-object.
         // See App\Listeners\NewServiceSendEmail
-        event(new NewServiceCreated($service, Auth::user()));
+//        event(new NewServiceCreated($service, Auth::user()));
     }
 
     /**
@@ -146,9 +130,18 @@ class ServiceController extends Controller
     {
         $data = $this->validatedData();
 
-        $data['active'] = request()->has('active');
+        if (request()->has('active') && (request()->get('active') === 'on') )
+        {
+            $data['active'] = 1;
+        }
+        else
+        {
+            $data['active'] = 0;
+        }
 
         $service->update($data);
+
+        $this->storeImage($service);
 
         // Tutorial From Scratch - e20 - Flashing Data to Session & Conditional Alerts in View.
         // Option 1. Using "with".
@@ -157,7 +150,7 @@ class ServiceController extends Controller
         // Option 2. Using session helper.
         session()->flash('message', 'Service has been updated.');
 
-        return redirect('/services');
+        return redirect(route('services.show', ['service' => $service]));
     }
 
     /**
@@ -179,9 +172,41 @@ class ServiceController extends Controller
      */
     private function validatedData()
     {
+        // Option 1. Hardcode using tap.
+//        return tap(request()->validate([
+//            'name' => 'required|min:2|max:255',
+//        ]), function () {
+//            if (request()->hasFile('image'))
+//            {
+//                request()->validate([
+//                    // 2048 is a size of a file in kB
+//                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//                ]);
+//            }
+//        });
+
+        // Option 2. Using option parameter "sometimes".
         return request()->validate([
             'name' => 'required|min:2|max:255',
-            // 'active' => 'accepted'  // checks if checkbox is checked
+            'image' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+    }
+
+    private function storeImage($service)
+    {
+        if (request()->has('image'))
+        {
+            $service->update([
+            // "->image" here is object of UploadedFile class that Laravel creates automatically
+            // when it sees that one of post parameters is a file.
+//                'image' => request()->image->store('uploads', 'public')
+            // or
+                'image' => request()->file('image')->store('uploads', 'public')
+            ]);
+
+            // Laravel 5.8 Tutorial From Scratch - e40 - Image Upload: Cropping & Resizing - Part 2
+            $image = Image::make(public_path('storage/' . $service->image))->fit(400, 400);
+            $image->save();
+        }
     }
 }

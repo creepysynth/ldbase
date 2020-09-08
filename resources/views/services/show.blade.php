@@ -5,7 +5,14 @@
         <div class="container">
             <h1>{{ $service->name }}</h1>
             <h4>{{ $service->active }}</h4>
-            <div class="row">
+            @if ($service->image)
+                <div class="row">
+                    <div class="col-12">
+                        <img src="{{ asset('storage/' . $service->image) }}" class="img-thumbnail" alt="">
+                    </div>
+                </div>
+            @endif
+            <div class="row mt-3">
                 <a href="/services" class="btn btn-primary mr-2">Back</a>
                 <a href="/services/{{ $service->id }}/edit" class="btn btn-success mr-2">Edit</a>
                 <form action="/services/{{ $service->id }}" method="POST">

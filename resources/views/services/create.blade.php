@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Create service</h1>
-        <form action="{{ route('services.store') }}" method="POST">
+        <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -26,6 +26,12 @@
             <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" id="active" name="active" @if(old('active') == 'on') checked @endif>
                 <label class="form-check-label" for="active">Active</label>
+            </div>
+            <div class="form-group d-flex flex-column">
+                <label for="image">Image</label>
+                <input type="file" name="image">
+                {{--                <p style="color:red;">@error('image'){{ $message }}@enderror</p>--}}
+                <p style="color:red;">{{ $errors->first('image') }}</p>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

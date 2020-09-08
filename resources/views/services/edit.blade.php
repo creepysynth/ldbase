@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Edit service</h1>
-        <form action="{{ route('services.update', ['service' => $service->id]) }}" method="POST">
+        <form action="{{ route('services.update', ['service' => $service->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             @if ($errors->any())
@@ -23,6 +23,12 @@
             <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" id="active" name="active" @if($service->active == 'Active') checked @endif>
                 <label class="form-check-label" for="active">Active</label>
+            </div>
+            <div class="form-group d-flex flex-column">
+                <label for="image">Image</label>
+                <input type="file" name="image">
+{{--                <p style="color:red;">@error('image'){{ $message }}@enderror</p>--}}
+                <p style="color:red;">{{ $errors->first('image') }}</p>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
