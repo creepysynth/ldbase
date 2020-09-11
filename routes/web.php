@@ -69,3 +69,8 @@ Route::get('/languages', function() {
 
     return view('languages.ua');
 });
+
+// * Laravel 5.8 Tutorial From Scratch - e28 - Events & Listeners
+// * Laravel 5.8 Tutorial From Scratch - e29 - Queues: Database Driver
+Route::get('/events', 'CounterController@index');
+Route::get('/events/edit', 'CounterController@edit');

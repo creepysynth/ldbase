@@ -20,3 +20,20 @@ Access to application's shell:
     ```
     docker-compose exec app bash
     ```
+
+---
+
+# How to use queues with Redis:
+
+1. Install the predis/predis package via Composer:
+    ```bash
+    composer require predis/predis
+    ```
+   
+2. Set `REDIS_CLIENT=predis` and `QUEUE_CONNECTION=redis` in `.env` file;
+
+3. Run:
+    ```
+   docker-compose exec app bash
+   php artisan queue:work
+   ```

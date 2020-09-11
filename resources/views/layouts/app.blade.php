@@ -45,6 +45,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/languages">Languages</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/events">Events</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

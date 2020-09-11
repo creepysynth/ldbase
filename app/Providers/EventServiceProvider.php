@@ -22,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\NewServiceSendEmail',
             'App\Listeners\PrintMessage',
         ],
+        'App\Events\CounterChanged' => [
+            'App\Listeners\EventMessage\ChangeCount1',
+            'App\Listeners\EventMessage\ChangeCount2',
+        ],
     ];
 
     /**
