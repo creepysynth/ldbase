@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('services.index') }}">Services</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/languages">Languages</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

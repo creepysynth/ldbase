@@ -11,6 +11,7 @@ class QuestionnaireController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(Questionnaire::class, 'questionnaire');
     }
 
     /**
@@ -32,6 +33,12 @@ class QuestionnaireController extends Controller
      */
     public function create()
     {
+        // * Laravel 5.8 Tutorial From Scratch - e44 - Policies
+        // Policy auto-discovery does not work, because we placed our Questionnaire model not
+        // into app folder by default, but in app/Models. So we have to manually register aur
+        // model policy in App\Providers\AuthServiceProvider.
+//        $this->authorize('create', Questionnaire::class);
+
         return view('questionnaires.create');
     }
 
@@ -93,12 +100,17 @@ class QuestionnaireController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Questionnaire $questionnaire
+     * @return void
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy($id)
+    public function destroy(Questionnaire $questionnaire)
     {
-        //
+        // * Laravel 5.8 Tutorial From Scratch - e44 - Policies
+        // Policy auto-discovery does not work, because we placed our Questionnaire model not
+        // into app folder by default, but in app/Models. So we have to manually register aur
+        // model policy in App\Providers\AuthServiceProvider.
+//        $this->authorize('delete', $questionnaire);
     }
 
     /**

@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-
-
-
 // Redirect option 1.
 //Route::get('/', function () {
 //    return redirect('/questionnaires');
@@ -65,4 +62,10 @@ Route::post('/surveys/{questionnaire}-{slug}', 'SurveyController@store')->name('
 // Laravel 5.8 Tutorial From Scratch - e26 - Vue Basics 101
 Route::get('/vue', function() {
     return view('vue.index');
+});
+
+Route::get('/languages', function() {
+    App::setLocale('ua');
+
+    return view('languages.ua');
 });
